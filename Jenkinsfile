@@ -7,6 +7,11 @@ pipeline {
                 sh 'node --version'
             }
         }
+        stage('run') {
+            steps {
+                sh 'node index.js'
+            }
+        }
     }
 }
 
