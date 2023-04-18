@@ -6,9 +6,10 @@ pipeline {
         } 
     }
     stages {
-        stage('Install Docker') {
+        stage('Install and start Docker') {
             steps {
                 sh 'apk add --no-cache docker'
+                sh 'service docker start
             }
         }
         stage('Build') {
