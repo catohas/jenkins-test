@@ -6,6 +6,11 @@ pipeline {
         } 
     }
     stages {
+        stage('Install openrc that should already be installed???') {
+            steps {
+                sh 'apk add --no-cache openrc'
+            }
+        }
         stage('Install and start Docker') {
             steps {
                 sh 'apk add --no-cache docker'
