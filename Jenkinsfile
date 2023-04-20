@@ -1,7 +1,13 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'node:16.17.1-alpine' } }
+    agent { docker { image 'ubuntu:latest' } }
     stages {
+        stage('install docker') {
+            steps {
+                sh 'apt update'
+                sh 'apt install docker.io'
+            }
+        }
         stage('build') {
             steps {
                 sh 'docker build -t jenkins-test-express .'
