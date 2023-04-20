@@ -5,10 +5,8 @@ pipeline {
             image 'docker'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
             reuseNode true
+            user 'root'
         } 
-    }
-    options {
-        unixSocketUser('jenkins')
     }
     stages {
         stage('build') {
