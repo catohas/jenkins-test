@@ -1,13 +1,12 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'ubuntu:latest' } }
+    agent {
+        docker {
+            image 'docker'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        } 
+    }
     stages {
-        stage('install docker') {
-            steps {
-                sh 'apt update'
-                sh 'apt install docker.io'
-            }
-        }
         stage('build') {
             steps {
                 sh 'docker build -t jenkins-test-express .'
@@ -18,6 +17,11 @@ pipeline {
                 sh 'docker stop jenkins-test-express || true'
                 sh 'docker rm jenkins-test-express || true'
                 sh 'docker run -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
+            }
+        }
+        stage('push') {
+            steps {
+                sh 'docker -H tcp://localhost:2375 push jenkins-express-test'
             }
         }
     }
