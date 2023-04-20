@@ -20,11 +20,6 @@ pipeline {
                 sh 'docker run -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
             }
         }
-        stage('push') {
-            steps {
-                sh 'docker -H tcp://localhost:2375 push jenkins-express-test'
-            }
-        }
     }
 }
 
