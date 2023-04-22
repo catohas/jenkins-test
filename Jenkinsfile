@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh 'docker stop jenkins-test-express || true'
                 sh 'docker rm jenkins-test-express || true'
-                sh 'docker run -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
+                sh 'docker run --restart=on-failure -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
             }
         }
     }
