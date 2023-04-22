@@ -8,16 +8,24 @@ pipeline {
         } 
     }
     stages {
-        stage('build') {
+        stage('stop') {
+            steps {
+                sh 'docker stop jenkins-test-express || true'
+                sh 'docker rm jenkins-test-express || true'
+            }
+        }
+        stage('delete') {
             steps {
                 sh 'docker rmi -f jenkins-test-express || true'
+            }
+        }
+        stage('build') {
+            steps {
                 sh 'docker build -t jenkins-test-express .'
             }
         }
         stage('deploy') {
             steps {
-                sh 'docker stop jenkins-test-express || true'
-                sh 'docker rm jenkins-test-express || true'
                 sh 'docker run --restart=on-failure -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
             }
         }
