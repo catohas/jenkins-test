@@ -10,6 +10,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh 'docker rmi -f jenkins-test-express || true'
                 sh 'docker build -t jenkins-test-express .'
             }
         }
