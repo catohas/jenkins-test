@@ -26,7 +26,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'docker run --restart=on-failure -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
+                sh 'docker run --restart=always -d --name jenkins-test-express -p 3000:3000 jenkins-test-express'
             }
         }
     }
